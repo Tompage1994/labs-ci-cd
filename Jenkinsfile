@@ -44,7 +44,7 @@ node() {
 
                 // Delete projects if they already exist (In order to prevent issues with the projects already existing). 
                 // Then wait some time to prevent trying to create a project when the delete command is still being tried as this can take a while
-                def command = """
+                def command = "
                     printenv
                     oc delete project ${env.PR_CI_CD_PROJECT_NAME} || rc=$?
                     oc delete project ${env.PR_DEV_PROJECT_NAME} || rc=$?
@@ -57,7 +57,7 @@ node() {
                         oc get project ${env.PR_DEV_PROJECT_NAME} || \
                         oc get project ${env.PR_DEMO_PROJECT_NAME} || unfinished=false
                     done
-                """
+                "
 
                 sh command
 
