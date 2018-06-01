@@ -46,7 +46,7 @@ node() {
                 // Then wait some time to prevent trying to create a project when the delete command is still being tried as this can take a while
                 sh """
                     printenv
-                    oc delete project ${env.PR_CI_CD_PROJECT_NAME} || rc=$?
+                    oc delete project \"${env.PR_CI_CD_PROJECT_NAME}\" || rc=$?
                     oc delete project ${env.PR_DEV_PROJECT_NAME} || rc=$?
                     oc delete project ${env.PR_DEMO_PROJECT_NAME} || rc=$?
                     # Wait for the projects to delete. When they have deleted they will return a RC != 0. 
