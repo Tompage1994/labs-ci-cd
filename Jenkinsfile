@@ -47,15 +47,13 @@ node() {
                 def command = """
                     printenv
                     oc delete project $PR_CI_CD_PROJECT_NAME || rc=\$?
-                    oc delete project ${env.PR_DEV_PROJECT_NAME} || rc=$?
-                    oc delete project ${env.PR_DEMO_PROJECT_NAME} || rc=$?
-                    # Wait for the projects to delete. When they have deleted they will return a RC != 0. 
-                    # Once all projects have deleted ${unfinished} will be false and the loop will stop.
-                    while ${unfinished}
+                    oc delete project $PR_DEV_PROJECT_NAME || rc=\$?
+                    oc delete project $PR_DEMO_PROJECT_NAME || rc=\$?
+                    while \${unfinished}
                     do
-                        oc get project ${env.PR_CI_CD_PROJECT_NAME} || \
-                        oc get project ${env.PR_DEV_PROJECT_NAME} || \
-                        oc get project ${env.PR_DEMO_PROJECT_NAME} || unfinished=false
+                        oc get project $PR_CI_CD_PROJECT_NAME || \
+                        oc get project $PR_DEV_PROJECT_NAME || \
+                        oc get project $PR_DEMO_PROJECT_NAME || unfinished=false
                     done
                 """
 
